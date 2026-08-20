@@ -16,7 +16,7 @@
 <header class="nav" id="top">
   <div class="nav__inner">
 
-    <a href="#top" class="nav__logo">Amiel Samorin</a>
+    <a href="#top" class="nav__logo" id="navLogo">Amiel Samorin</a>
 
     <nav class="nav__links" id="navLinks">
       <a href="#about" data-nav>About</a>
@@ -114,44 +114,54 @@
 
   <div class="section__head">
     <div>
-      <span class="section__eyebrow">02</span>
+      <span class="section__eyebrow">02 / 04</span>
       <h2 class="section__title glitch" data-text="Skills">Skills</h2>
+      <p class="section__subtitle">Technologies and strengths I use to build, learn, and solve problems.</p>
     </div>
   </div>
 
-  <h3 class="skills__group-title">
-    Technical Skills
-  </h3>
+  <div class="skills__layout">
 
-  <div class="tag-list">
+    <div class="skills__main">
 
-    <span class="tag tag--accent">HTML5</span>
-    <span class="tag tag--accent">CSS3</span>
-    <span class="tag tag--accent">JavaScript (Basic)</span>
-    <span class="tag">Java (Basic)</span>
-    <span class="tag">Visual Studio</span>
-    <span class="tag">Apache NetBeans</span>
-    <span class="tag">MySQL (Basic)</span>
-    <span class="tag">Microsoft Office</span>
+      <h3 class="skills__group-title">Technical Skills</h3>
 
-  </div>
+      <h4 class="skills__subgroup-title">Programming &amp; Web</h4>
+      <div class="tag-list">
+        <span class="tag tag--accent tag--stagger">HTML5</span>
+        <span class="tag tag--accent tag--stagger">CSS3</span>
+        <span class="tag tag--accent tag--stagger">JavaScript (Basic)</span>
+        <span class="tag tag--accent tag--stagger">Java (Basic)</span>
+        <span class="tag tag--accent tag--stagger">MySQL (Basic)</span>
+      </div>
 
-  <h3 class="skills__group-title skills__group-title--spaced">
-    Soft Skills
-  </h3>
+      <h4 class="skills__subgroup-title skills__subgroup-title--spaced">Tools &amp; Software</h4>
+      <div class="tag-list">
+        <span class="tag tag--stagger">Visual Studio</span>
+        <span class="tag tag--stagger">Apache NetBeans</span>
+        <span class="tag tag--stagger">Microsoft Office</span>
+      </div>
 
-  <div class="tag-list">
+      <h3 class="skills__group-title skills__group-title--spaced">Soft Skills</h3>
+      <div class="tag-list">
+        <span class="tag tag--stagger">Communication</span>
+        <span class="tag tag--stagger">Teamwork</span>
+        <span class="tag tag--stagger">Problem-Solving</span>
+        <span class="tag tag--stagger">Critical Thinking</span>
+        <span class="tag tag--stagger">Adaptability</span>
+        <span class="tag tag--stagger">Attention to Detail</span>
+        <span class="tag tag--stagger">Fast Learner</span>
+      </div>
 
-    <span class="tag">Communication</span>
-    <span class="tag">Teamwork</span>
-    <span class="tag">Problem-Solving</span>
-    <span class="tag">Critical Thinking</span>
-    <span class="tag">Time Management</span>
-    <span class="tag">Adaptability</span>
-    <span class="tag">Attention to Detail</span>
-    <span class="tag">Leadership</span>
-    <span class="tag">Creativity</span>
-    <span class="tag">Fast Learner</span>
+    </div>
+
+    <div class="skills__decor" aria-hidden="true">
+      <span class="skills__decor-line">// stack.config</span>
+      <span class="skills__decor-line">{ status: "compiling" }</span>
+      <span class="skills__decor-line">[ 01001100 ]</span>
+      <span class="skills__decor-line">build --watch</span>
+      <span class="skills__decor-bracket">&lt;/&gt;</span>
+    </div>
 
   </div>
 
