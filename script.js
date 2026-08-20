@@ -342,6 +342,40 @@ document.querySelectorAll(".tag").forEach(tag => {
 });
 
 
+/* ===== SKILLS STAGGERED PILL REVEAL =====
+   Assign each pill in #skills an --i index (in document order across
+   all groups), then reveal them with a cascading delay the first
+   time the Skills section scrolls into view. */
+
+const skillsSection = document.getElementById("skills");
+
+if (skillsSection) {
+  const staggerTags = skillsSection.querySelectorAll(".tag--stagger");
+
+  staggerTags.forEach((tag, index) => {
+    tag.style.setProperty("--i", index);
+  });
+
+  if (prefersReducedMotion) {
+    skillsSection.classList.add("is-visible");
+  } else {
+    const skillsRevealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            skillsSection.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    skillsRevealObserver.observe(skillsSection);
+  }
+}
+
+
 /* ===== NAV HOVER SCRAMBLE ===== */
 
 const scrambleCharacters =
@@ -422,3 +456,122 @@ document
     );
 
   });
+
+
+/* ===== CURSOR-REACTIVE HERO GLITCH =====
+   The hero name's RGB-split layers separate more the closer the
+   mouse gets to it, and lean in the direction of the cursor. */
+
+const heroName = document.querySelector(".hero__name");
+
+if (heroName && !prefersReducedMotion) {
+  const PROXIMITY_RADIUS = 260; // px — how far the effect reaches
+
+  window.addEventListener("mousemove", event => {
+    const rect = heroName.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+
+    const dx = event.clientX - cx;
+    const dy = event.clientY - cy;
+    const distance = Math.sqrt(dx * dx + dy * dy) || 1;
+
+    const proximity = Math.max(0, 1 - distance / PROXIMITY_RADIUS);
+
+    heroName.style.setProperty("--gi", proximity.toFixed(2));
+    heroName.style.setProperty("--gx", `${(dx / distance) * proximity * 6}px`);
+  });
+}
+
+
+/* ===== AMBIENT SIGNAL DRIFT =====
+   Every so often, a random heading or skill tag currently on screen
+   glitches on its own — makes the page feel alive rather than only
+   reactive to clicks/scrolling. */
+
+function scheduleAmbientGlitch() {
+  if (prefersReducedMotion) {
+    return;
+  }
+
+  const delay = 4000 + Math.random() * 6000; // every 4-10s
+
+  setTimeout(() => {
+    const candidates = Array.from(
+      document.querySelectorAll(".glitch, .tag")
+    ).filter(el => {
+      const rect = el.getBoundingClientRect();
+      return rect.top < window.innerHeight && rect.bottom > 0;
+    });
+
+    if (candidates.length) {
+      const target =
+        candidates[Math.floor(Math.random() * candidates.length)];
+      triggerGlitch(target);
+    }
+
+    scheduleAmbientGlitch();
+  }, delay);
+}
+
+scheduleAmbientGlitch();
+
+
+/* ===== SYSTEM GLITCH EASTER EGG (click logo) =====
+   Clicking the nav logo triggers a full-screen static/chromatic-
+   aberration flash with a random glitchy message and a screen shake,
+   then scrolls back to the top. */
+
+const systemMessages = [
+  "SIGNAL LOST...",
+  "RECONNECTING...",
+  "AMIEL_SAMORIN.EXE",
+  "// rebuilding...",
+  "404: BUG NOT FOUND"
+];
+
+const glitchOverlay = document.createElement("div");
+glitchOverlay.className = "system-glitch-overlay";
+document.body.appendChild(glitchOverlay);
+
+const glitchMsgEl = document.createElement("div");
+glitchMsgEl.className = "system-glitch-msg";
+document.body.appendChild(glitchMsgEl);
+
+function triggerSystemGlitch() {
+  if (prefersReducedMotion) {
+    return;
+  }
+
+  glitchMsgEl.textContent =
+    systemMessages[Math.floor(Math.random() * systemMessages.length)];
+
+  glitchOverlay.classList.remove("is-active");
+  glitchMsgEl.classList.remove("is-active");
+  document.body.classList.remove("is-shaking");
+
+  void glitchOverlay.offsetWidth;
+
+  glitchOverlay.classList.add("is-active");
+  glitchMsgEl.classList.add("is-active");
+  document.body.classList.add("is-shaking");
+
+  setTimeout(() => {
+    glitchOverlay.classList.remove("is-active");
+    glitchMsgEl.classList.remove("is-active");
+    document.body.classList.remove("is-shaking");
+  }, 600);
+}
+
+const navLogo = document.getElementById("navLogo");
+
+if (navLogo) {
+  navLogo.style.cursor = "pointer";
+  navLogo.addEventListener("click", event => {
+    event.preventDefault();
+    triggerSystemGlitch();
+    setTimeout(() => {
+      window.location.hash = "#top";
+    }, 300);
+  });
+}
