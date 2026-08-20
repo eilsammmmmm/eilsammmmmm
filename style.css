@@ -315,10 +315,7 @@ button {
 /* ===== SKILLS LAYOUT ===== */
 
 .skills__layout {
-  display: grid;
-  grid-template-columns: 1fr 210px;
-  gap: 60px;
-  align-items: start;
+  display: block;
 }
 
 .skills__group-title {
@@ -391,41 +388,6 @@ button {
   opacity: 1;
   transform: translateY(0);
   transition-delay: calc(var(--i, 0) * 55ms);
-}
-
-/* ===== SKILLS DECOR PANEL ===== */
-
-.skills__decor {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 20px;
-  border: 1px dashed var(--border);
-  border-radius: 12px;
-  background: var(--card);
-  font-family: "Space Grotesk", monospace;
-  font-size: 0.72rem;
-  color: var(--muted);
-  position: sticky;
-  top: 110px;
-}
-
-.skills__decor-line {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.skills__decor-line:first-child {
-  color: var(--accent);
-}
-
-.skills__decor-bracket {
-  margin-top: 6px;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: color-mix(in srgb, var(--accent) 60%, var(--border));
-  align-self: flex-end;
 }
 
 .skills__note {
@@ -995,16 +957,6 @@ body.is-shaking {
 }
 
 /* ===== MOBILE ===== */
-
-@media (max-width: 900px) {
-  .skills__layout {
-    grid-template-columns: 1fr;
-  }
-
-  .skills__decor {
-    display: none;
-  }
-}
 
 @media (max-width: 800px) {
 
